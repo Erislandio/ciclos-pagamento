@@ -1,12 +1,11 @@
 // * serviços rest
 const BillingCycle = require('./billingCycle')
+const errorHandler = require('../commom/erroHandler')
 
 // * metodos http [get, post, put, delete] -> principais
 BillingCycle.methods(['get', 'post', 'put', 'delete'])
-BillingCycle.updateOptions({
-    new: true,
-    runValidators: true
-})
+BillingCycle.updateOptions({ new: true, runValidators: true })
+BillingCycle.after('post', errorHandler).after('put', errorHandler)
 
 BillingCycle.route('count', (req, res, next) => {
     BillingCycle.count((error, value) => {
